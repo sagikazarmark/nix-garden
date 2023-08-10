@@ -70,6 +70,8 @@
                 url = "https://github.com/garden-io/garden/releases/download/${version}/garden-${version}-${suffix}.tar.gz";
               };
 
+            buildInputs = [ pkgs.git ];
+
             dontConfigure = true;
             dontBuild = true;
             dontFixup = true;
@@ -80,6 +82,7 @@
               runHook preInstall
               mkdir -p $out/
               cp -r * $out/
+              cd $out/static && git init
               mkdir -p $out/bin/
               ln -s $out/garden $out/bin/garden
               runHook postInstall
