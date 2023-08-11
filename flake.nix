@@ -70,7 +70,8 @@
                 url = "https://github.com/garden-io/garden/releases/download/${version}/garden-${version}-${suffix}.tar.gz";
               };
 
-            buildInputs = [ pkgs.git ];
+            # buildInputs = [ pkgs.git ];
+            nativeBuildInputs = [ pkgs.git pkgs.makeWrapper ];
 
             dontConfigure = true;
             dontBuild = true;
@@ -80,12 +81,21 @@
 
             installPhase = ''
               runHook preInstall
-              mkdir -p $out/
-              cp -r * $out/
-              cd $out/static && git init
-              mkdir -p $out/bin/
-              ln -s $out/garden $out/bin/garden
+
+              mkdir -p $out/opt/garden/
+              cp -r * $out/opt/garden/
+              cd $out/opt/garden/static && git init && cd -
+
               runHook postInstall
+            '';
+
+            # https://github.com/kubernetes/test-infra/issues/28721#issuecomment-1429813787
+            postInstall = ''
+              mkdir -p $out/bin/
+              makeWrapper $out/opt/garden/garden $out/bin/garden \
+                --set GIT_CONFIG_COUNT 1 \
+                --set GIT_CONFIG_KEY_0 safe.directory \
+                --set GIT_CONFIG_VALUE_0 $out/opt/garden/static
             '';
           };
         };
