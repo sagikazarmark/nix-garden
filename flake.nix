@@ -47,7 +47,7 @@
           # };
           garden = pkgs.stdenv.mkDerivation rec {
             pname = "garden";
-            version = "0.13.10";
+            version = "0.13.12";
 
             src =
               let
@@ -56,12 +56,14 @@
                 suffix = selectSystem {
                   x86_64-linux = "linux-amd64";
                   x86_64-darwin = "macos-amd64";
-                  aarch64-darwin = "macos-amd64";
+                  aarch64-linux = "linux-arm64";
+                  aarch64-darwin = "macos-arm64";
                 };
                 sha256 = selectSystem {
-                  x86_64-linux = "sha256-bgjjbI4px2NlkSxMhXZhXWUqaZghf16dlx7Y18N9ujs=";
-                  x86_64-darwin = "sha256-3/rYexkO7nDN9nmX2g3rER+HWhMXx0Vi9jQ8brbacBM=";
-                  aarch64-darwin = "sha256-3/rYexkO7nDN9nmX2g3rER+HWhMXx0Vi9jQ8brbacBM=";
+                  x86_64-linux = "sha256-GsF0yiwJsIQgh3BnWMXK/zfVN/L8zAGbBWQs+HXKqXI=";
+                  x86_64-darwin = "sha256-Y+yI5At5+nE1H/LhRNj8ZRcTT1Rd+KmNMvahiGEZIEM=";
+                  aarch64-linux = "sha256-xvLSs5ciA/d6YKCuEJDLMNzwajXuaBBiHLzZC0yTqE4=";
+                  aarch64-darwin = "sha256-fUCPPZjkbgNWE+FFwuGvMtjY0Bv8nGfbfG7ZwMXl/Uo=";
                 };
               in
               pkgs.fetchzip {
