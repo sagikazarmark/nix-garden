@@ -1,0 +1,20 @@
+diff --git a/core/src/commands/commands.ts b/core/src/commands/commands.ts
+index 9b07be40b..a85d8ea54 100644
+--- a/core/src/commands/commands.ts
++++ b/core/src/commands/commands.ts
+@@ -27,7 +27,6 @@ import { PluginsCommand } from "./plugins"
+ import { PublishCommand } from "./publish"
+ import { RunCommand } from "./run"
+ import { WorkflowCommand } from "./workflow"
+-import { SelfUpdateCommand } from "./self-update"
+ import { ServeCommand } from "./serve"
+ import { SetCommand } from "./set"
+ import { SyncCommand } from "./sync/sync"
+@@ -60,7 +59,6 @@ export const getCoreCommands = (): (Command | CommandGroup)[] => [
+   new PublishCommand(),
+   new RunCommand(),
+   new WorkflowCommand(),
+-  new SelfUpdateCommand(),
+   new ServeCommand(),
+   new SetCommand(),
+   new SyncCommand(),

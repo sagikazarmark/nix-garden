@@ -24,6 +24,7 @@
               kustomize
             ] ++ [
               self'.packages.garden
+              # self'.packages.garden-src
             ];
 
             # https://github.com/cachix/devenv/issues/528#issuecomment-1556108767
@@ -34,17 +35,43 @@
         };
 
         packages = {
-          # garden = pkgs.mkYarnPackage rec {
-          #   name = "garden";
-          #   version = "0.13.10";
-          #
-          #   src = pkgs.fetchFromGitHub {
-          #     owner = "garden-io";
-          #     repo = "${name}";
-          #     rev = "${version}";
-          #     sha256 = "sha256-rsY1Hypp3rTjwRu9/whmz4WtXn1ZmUgEAJgqnoCe3Rk=";
-          #   };
-          # };
+          garden-src = pkgs.mkYarnPackage rec {
+            name = "garden";
+            version = "0.13.12";
+
+            src = pkgs.fetchFromGitHub {
+              owner = "garden-io";
+              repo = "${name}";
+              rev = "${version}";
+              sha256 = "sha256-IDdZ+UpFoycX00TK99JTSTqX9xUzYSYAuhZK5DPDzRg=";
+            };
+
+            patches = [ ./remove_self_update.patch ];
+
+            buildPhase = ''
+              runHook preBuild
+
+              export HOME=$(mktemp -d)
+              yarn --offline build
+              # yarn build
+
+              # pushd deps/${name}
+              # yarn --verbose build
+              # popd
+
+              runHook postBuild
+            '';
+
+            # installPhase = ''
+            #   runHook preInstall
+            #
+            #
+            #   runHook postInstall
+            # '';
+
+            doDist = false;
+          };
+
           garden = pkgs.stdenv.mkDerivation rec {
             pname = "garden";
             version = "0.13.12";
