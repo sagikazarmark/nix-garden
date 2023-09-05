@@ -37,7 +37,7 @@
         packages = {
           garden-src = pkgs.mkYarnPackage rec {
             name = "garden";
-            version = "0.13.12";
+            version = "0.13.13";
 
             src = pkgs.fetchFromGitHub {
               owner = "garden-io";
@@ -74,7 +74,7 @@
 
           garden = pkgs.stdenv.mkDerivation rec {
             pname = "garden";
-            version = "0.13.12";
+            version = "0.13.13";
 
             src =
               let
@@ -87,10 +87,10 @@
                   aarch64-darwin = "macos-arm64";
                 };
                 sha256 = selectSystem {
-                  x86_64-linux = "sha256-GsF0yiwJsIQgh3BnWMXK/zfVN/L8zAGbBWQs+HXKqXI=";
-                  x86_64-darwin = "sha256-Y+yI5At5+nE1H/LhRNj8ZRcTT1Rd+KmNMvahiGEZIEM=";
-                  aarch64-linux = "sha256-xvLSs5ciA/d6YKCuEJDLMNzwajXuaBBiHLzZC0yTqE4=";
-                  aarch64-darwin = "sha256-fUCPPZjkbgNWE+FFwuGvMtjY0Bv8nGfbfG7ZwMXl/Uo=";
+                  x86_64-linux = "sha256-PV1qZI29AsdwpKSjQxgupJzV8T32/FlNFrFgM1gO92A=";
+                  x86_64-darwin = "sha256-Jpywk3BI01YAKDaPJBdatpRrEB5/HMzBBgN1BoTpqmA=";
+                  aarch64-linux = "sha256-n787e9fOpmZs1cGgJHwkodmYQRNclaSnOQo8OGpX1nQ=";
+                  aarch64-darwin = "sha256-XJSL+RafzSZ+0jIepgJL1Sl2hsTumAd9JHVAzDIOKEw=";
                 };
               in
               pkgs.fetchzip {
